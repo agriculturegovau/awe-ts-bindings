@@ -1,0 +1,86 @@
+swagger: "2.0"
+info:
+  description: ""
+  version: "1.0.0"
+  title: "AWE intelligence"
+schemes:
+- "https"
+paths:
+  /intelligenceapi/meat-hygiene/national:
+    get:
+      summary: "Get national scores"
+      description: ""
+      operationId: "GetNationalScore"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "One fortnights worth of score"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Score"
+  /intelligenceapi/meat-hygiene/establishments:
+    get:
+      summary: "Get establishment scores"
+      description: ""
+      operationId: "GetEstablishmentsScore"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "ids"
+        in: "query"
+        description: "Filter to only chosen establishment ids"
+        required: false
+        type: "array"
+        items:
+          type: "number"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "One fortnights worth of score"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Score"
+
+definitions:
+  Score:
+    type: "object"
+    properties:
+      metadata_period_in_days:
+        type: "integer"
+        format: "int32"
+      establishment_id:
+        type: "integer"
+        format: "int32"
+      total_active_breaches:
+        type: "integer"
+        format: "int32"
+      total_active_reported_concerns:
+        type: "integer"
+        format: "int32"
+      total_species:
+        type: "integer"
+        format: "int32"
+      total_establishments:
+        type: "integer"
+        format: "int32"
+      establishment_name:
+        type: "string"
+      percentage_total_hygiene_score:
+        type: "number"
+        format: "float"
+      metadata_date_end:
+        type: "string"
+        format: "date-time"
