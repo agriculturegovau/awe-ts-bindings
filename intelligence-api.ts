@@ -10,19 +10,47 @@ export interface paths {
   "/intelligenceapi/meat-hygiene/establishments": {
     get: operations["GetEstablishmentsScore"];
   };
+  "/intelligenceapi/meat-hygiene-assessment/{establishmentId}": {
+    get: operations["GetMeatHygieneAssessmentResult"];
+  };
 }
 
-export interface definitions {
-  Score: {
-    metadata_period_in_days?: number;
-    establishment_id?: number;
-    total_active_breaches?: number;
-    total_active_reported_concerns?: number;
-    total_species?: number;
-    total_establishments?: number;
-    establishment_name?: string;
-    percentage_total_hygiene_score?: number;
-    metadata_date_end?: string;
+export interface components {
+  schemas: {
+    Score: {
+      metadata_period_in_days?: number;
+      establishment_id?: number;
+      total_active_breaches?: number;
+      total_active_reported_concerns?: number;
+      total_species?: number;
+      total_establishments?: number;
+      establishment_name?: string;
+      percentage_total_hygiene_score?: number;
+      metadata_date_end?: string;
+    };
+    MeatHygieneAuditDatum: {
+      countKills?: number | null;
+      establishmentId?: number;
+      averageHygieneScoreEstablishment?: number | null;
+      averageHygieneScoreDepartment?: number | null;
+      averageHygieneScoreEstablishmentNat14Day?: number | null;
+      date?: string | null;
+      countZeroToleranceDetectionEstablishment?: number | null;
+      countZeroToleranceDetectionDepartment?: number | null;
+      average14DayNationalCountZeroToleranceDetectionEstablishment?:
+        | number
+        | null;
+      upperMarginThreshold?: number | null;
+      lowerMarginThreshold?: number | null;
+    };
+    MeatHygieneAuditMetadatum: {
+      updatedAt?: string;
+      dateStart?: string;
+      dateEnd?: string;
+      establishmentId?: number;
+      species?: components["schemas"]["Species"];
+    };
+    Species: "N/A" | "Pigs" | "Orvine" | "Cattle" | "Calves" | "Goats" | "Beef";
   };
 }
 
@@ -31,8 +59,10 @@ export interface operations {
     responses: {
       /** One fortnights worth of score */
       200: {
-        schema: {
-          data?: definitions["Score"][];
+        content: {
+          "application/json": {
+            data?: components["schemas"]["Score"][];
+          };
         };
       };
     };
@@ -47,8 +77,37 @@ export interface operations {
     responses: {
       /** One fortnights worth of score */
       200: {
-        schema: {
-          data?: definitions["Score"][];
+        content: {
+          "application/json": {
+            data?: components["schemas"]["Score"][];
+          };
+        };
+      };
+    };
+  };
+  GetMeatHygieneAssessmentResult: {
+    parameters: {
+      path: {
+        /** Establishment ID */
+        establishmentId: number;
+      };
+      query: {
+        /** Start date for the report */
+        dateStart: string;
+        /** End date for the report */
+        dateEnd: string;
+        /** End date for the report */
+        species: components["schemas"]["Species"][];
+      };
+    };
+    responses: {
+      /** An array of data per day */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["MeatHygieneAuditDatum"][];
+            metadata?: components["schemas"]["MeatHygieneAuditMetadatum"];
+          };
         };
       };
     };
