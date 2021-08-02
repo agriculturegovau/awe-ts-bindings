@@ -33,13 +33,16 @@ export interface components {
       establishmentId?: number;
       averageHygieneScoreEstablishment?: number | null;
       averageHygieneScoreDepartment?: number | null;
-      averageHygieneScoreEstablishmentNat14Day?: number | null;
+      averageHygieneScoreEstablishmentNational14Day?: number | null;
       date?: string | null;
       countZeroToleranceDetectionEstablishment?: number | null;
       countZeroToleranceDetectionDepartment?: number | null;
       average14DayNationalCountZeroToleranceDetectionEstablishment?:
         | number
         | null;
+      countZeroToleranceBreachEstablishment?: number | null;
+      countZeroToleranceBreachDepartment?: number | null;
+      average14DayNationalCountZeroToleranceBreachEstablishment?: number | null;
       upperMarginThreshold?: number | null;
       lowerMarginThreshold?: number | null;
     };
@@ -48,7 +51,7 @@ export interface components {
       dateStart?: string;
       dateEnd?: string;
       establishmentId?: number;
-      species?: components["schemas"]["Species"];
+      species?: components["schemas"]["Species"][];
     };
     Species: "N/A" | "Pigs" | "Orvine" | "Cattle" | "Calves" | "Goats" | "Beef";
   };
@@ -96,6 +99,10 @@ export interface operations {
         dateStart: string;
         /** End date for the report */
         dateEnd: string;
+        /** Performance concern */
+        performanceConcern: string;
+        /** Meat Condition */
+        meatCondition: string;
         /** End date for the report */
         species: components["schemas"]["Species"][];
       };
