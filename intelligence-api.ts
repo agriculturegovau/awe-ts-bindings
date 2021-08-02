@@ -53,7 +53,43 @@ export interface components {
       establishmentId?: number;
       species?: components["schemas"]["Species"][];
     };
-    Species: "N/A" | "Pigs" | "Orvine" | "Cattle" | "Calves" | "Goats" | "Beef";
+    Species:
+      | "Buffalo"
+      | "Calf"
+      | "Calves"
+      | "Camels"
+      | "Cattle"
+      | "Cow/Bull"
+      | "Deer"
+      | "Donkey"
+      | "Emu"
+      | "Game Deer"
+      | "Game Kangaroo"
+      | "Game Pig"
+      | "Game Pigs"
+      | "Game Rabbits"
+      | "Goat"
+      | "Goats"
+      | "Hares"
+      | "Horses"
+      | "Kangaroo"
+      | "Lamb"
+      | "Macropod"
+      | "N/A"
+      | "Ostriches"
+      | "Other"
+      | "Ovine"
+      | "Pig"
+      | "Pigs"
+      | "Possums"
+      | "Poultry"
+      | "RTE Products"
+      | "Rabbits"
+      | "Ratite"
+      | "Sheep"
+      | "Steer/Heifer"
+      | "Tripe"
+      | "Wild Boar";
   };
 }
 
@@ -100,9 +136,25 @@ export interface operations {
         /** End date for the report */
         dateEnd: string;
         /** Performance concern */
-        performanceConcern: string;
+        performanceConcern: "Skin Off" | "Skin On" | "N/A";
         /** Meat Condition */
-        meatCondition: string;
+        meatCondition:
+          | "Boning room meat hygiene"
+          | "Carcase E.coli"
+          | "Carcase aerobic plate count"
+          | "Carcase coliform"
+          | "Carton meat E.coli"
+          | "Carton meat STEC"
+          | "Carton meat aerobic plate count"
+          | "Carton meat coliform"
+          | "Carton meat contamination"
+          | "Carton meat manufacturing defect"
+          | "Carton meat pathology"
+          | "Establishment contact surface hygiene"
+          | "Establishment personal hygiene"
+          | "Offal meat hygiene"
+          | "Salmonella"
+          | "Slaughter floor meat hygiene";
         /** End date for the report */
         species: components["schemas"]["Species"][];
       };
