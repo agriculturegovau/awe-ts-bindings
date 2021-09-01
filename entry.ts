@@ -1,1 +1,1 @@
-export { components } from 'dist/profile-api';
+export { components } from './dist/profile-api';
