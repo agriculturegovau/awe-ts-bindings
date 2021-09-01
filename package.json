@@ -1,5 +1,11 @@
 {
+  "scripts": {
+    "generate": "node generate.js"
+  },
   "devDependencies": {
     "openapi-typescript": "^4.0.2"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0"
   }
 }
