@@ -7,7 +7,7 @@ npm i
 npm run generate
 ```
 
-This will make the typescript data types available
+This will pull specs from the API and save them.
 
 ## Using these bindings
 
